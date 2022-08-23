@@ -1,0 +1,9 @@
+{% load static %}
+
+<div class="container">
+    <h3>All Categories </h3>
+{% for item in cat_menu_list %}
+    <!--Check PostListView bfr apply these-->
+    <h4><a class="dropdown-item" href="{% url 'category_view' item|slugify %}">{{ item }}</a></h4>
+{% endfor %}
+</div>

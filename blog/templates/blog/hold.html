@@ -1,0 +1,265 @@
+{% for post in post_list %}
+
+    <div class="card mb-1" style="max-width: 100%; background-color: #dbdddf;">
+        <div class="row g-0">
+    
+            {% if post.image %}
+            <div class="col-md-4" >
+                <img src="{{ post.image.url }}" class="w-100 img-thumbnail img-fluid" style="height: 100%;"> 
+            </div>  
+            {% endif %} 
+            
+    
+            <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="{% url 'post_detail' pk=post.id %}"> {{ post.title }} </a>  
+                </h5>
+                <p class="card-text">
+                    <small class="text-muted">               
+                        <p class="card-text">Category : <a class="" href="{% url 'category_view' post.category|slugify %}">{{ post.category }}</a></p>
+                        <p class="card-text">Authur : <a class="" href="{% url 'category_view' post.category|slugify %}">{{ post.author.username}}</a></p>               
+                    </small>
+                </p>
+                <small class="text-muted">
+                    <p class="card-text">
+                        {{ post.text|safe|slice:":150"}}
+                    </p>....<a href="{% url 'post_detail' pk=post.id %}">see more</a>
+                    <p class="card-text">Published on: {{ post.create_date|date:"D M Y"}}</p>
+                </small>
+                
+            </div>
+            </div>
+        </div>
+    </div>
+         
+    
+       
+    {% endfor %}
+
+
+
+
+
+
+
+    <div class="row mb-2">
+        {% for post in post_list %}
+          <div class="col-md-6">
+            
+            
+              {% if post.text %}
+              <div class="card mb-1" style="max-width: 100%; background-color: #dbdddf;">
+              <div class="row">
+
+                {% if post.image %}
+                <div class="col-8 col-sm-4" >
+                    <img src="{{ post.image.url }}" class="w-100 img-thumbnail img-fluid" style="height: 100%;"> 
+                </div>  
+                {% endif %} 
+                <div class="col-4 col-sm-8" >
+                  <div class="card-body">
+                      <h5 class="card-title">
+                          <a href="{% url 'post_detail' pk=post.id %}"> {{ post.title }} </a>  
+                      </h5>
+                      <p class="card-text">
+                          <small class="text-muted">               
+                              <p class="card-text">Category : <a class="" href="{% url 'category_view' post.category|slugify %}">{{ post.category }}</a></p>
+                              <p class="card-text">Authur : <a class="" href="{% url 'category_view' post.category|slugify %}">{{ post.author.username}}</a></p>               
+                          </small>
+                      </p>
+                      <small class="text-muted">
+                          <p class="card-text">
+                              {{ post.text|safe|slice:":150"}}
+                          </p>....<a href="{% url 'post_detail' pk=post.id %}">see more</a>
+                          <p class="card-text">Published on: {{ post.create_date|date:"D M Y"}}</p>
+                      </small>
+                      
+                  </div>
+                </div>
+              </div>
+              </div>
+              {% else %}
+              <p><u>No post currently available</u></p>
+              {% endif %}
+            
+          </div>
+
+          {% endfor %}
+        
+      </div>
+
+
+      {% if post.text %}
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary"><a class="" href="{% url 'category_view' post.category|slugify %}">{{ post.category }}</a></strong>
+          <h3 class="mb-0"> {{ post.title }} </h3>
+          <div class="mb-1 text-muted"><small>Published on: {{ post.create_date|date:"D M Y"}}</small></div>
+          <p class="card-text mb-auto">{{ post.text|safe|slice:":100"}}</p>
+          <a href="{% url 'post_detail' pk=post.id %}" >Continue reading</a>
+        </div>
+        {% if post.image %}
+        <div class="col-auto d-none d-lg-block">         
+          <img src="{{ post.image.url }}" class="bd-placeholder-img" width="200" height="250">
+        </div>
+        {% endif %}
+      </div>
+      {% else %}
+        <p><u>No post currently available</u></p>
+      {% endif %}
+
+
+
+      {% for post in post_list %}
+      <div class="col-md-6">
+        {% if post.text %}
+          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+          
+          <div class="col p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 text-success"><a class="" href="{% url 'category_view' post.category|slugify %}">{{ post.category }}</a></strong>
+            <h3 ><a class="mb-0" href="{% url 'post_detail' pk=post.id %}"> {{ post.title }} </a></h3>
+            <div class="mb-1 text-muted">Published on: {{ post.create_date|date:"D M Y"}}</div>
+            <p class="mb-auto">{{ post.text|safe|slice:":150"}}</p>
+            <a href="{% url 'post_detail' pk=post.id %}" class="stretched-link">Continue reading</a>
+          </div>
+          {% if post.image %}
+          <div class="col-auto d-none d-lg-block"> 
+            <img src="{{ post.image.url }}" class="w-100 img-thumbnail img-fluid" style="height: 100%;">
+          </div>
+          {% endif %}
+         </div>
+        {% else %}
+          <p><u>No post currently available</u></p>
+        {% endif %}
+      </div>
+      {% endfor %}
+
+
+    <div class="row g-5">
+        {% for post in post_list %}
+          <div class="col-md-8">
+            
+            
+              {% if post.text %}
+              <div class="card mb-1" style="max-width: 100%; background-color: #dbdddf;">
+              <div class="row">
+
+                {% if post.image %}
+                <div class="col-8 col-sm-4" >
+                    <img src="{{ post.image.url }}" class="w-100 img-thumbnail img-fluid" style="height: 100%;"> 
+                </div>  
+                {% endif %} 
+                <div class="col-4 col-sm-8" >
+                  <div class="card-body">
+                      <h5 class="card-title">
+                          <a href="{% url 'post_detail' pk=post.id %}"> {{ post.title }} </a>  
+                      </h5>
+                      <p class="card-text">
+                          <small class="text-muted">               
+                              <p class="card-text">Category : <a class="" href="{% url 'category_view' post.category|slugify %}">{{ post.category }}</a></p>
+                              <p class="card-text">Authur : <a class="" href="{% url 'category_view' post.category|slugify %}">{{ post.author.username}}</a></p>               
+                          </small>
+                      </p>
+                      <small class="text-muted">
+                          <p class="card-text">
+                              {{ post.text|safe|slice:":150"}}
+                          </p>....<a href="{% url 'post_detail' pk=post.id %}">see more</a>
+                          <p class="card-text">Published on: {{ post.create_date|date:"D M Y"}}</p>
+                      </small>
+                      
+                  </div>
+                </div>
+              </div>
+              </div>
+              {% else %}
+              <p><u>No post currently available</u></p>
+              {% endif %}
+            
+          </div>
+          {% endfor %}
+    
+        <div class="col-md-4">
+          <div class="position-sticky" style="top: 2rem;">
+            <div class="p-4 mb-3 bg-light rounded">
+              <h4 class="fst-italic">About</h4>
+              <p class="mb-0">Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.</p>
+            </div>
+    
+            <div class="p-4">
+              <h4 class="fst-italic">Archives</h4>
+              <ol class="list-unstyled mb-0">
+                <li><a href="#">March 2021</a></li>
+                <li><a href="#">February 2021</a></li>
+                <li><a href="#">January 2021</a></li>
+                <li><a href="#">December 2020</a></li>
+                <li><a href="#">November 2020</a></li>
+                <li><a href="#">October 2020</a></li>
+                <li><a href="#">September 2020</a></li>
+                <li><a href="#">August 2020</a></li>
+                <li><a href="#">July 2020</a></li>
+                <li><a href="#">June 2020</a></li>
+                <li><a href="#">May 2020</a></li>
+                <li><a href="#">April 2020</a></li>
+              </ol>
+            </div>
+    
+            <div class="p-4">
+              <h4 class="fst-italic">Elsewhere</h4>
+              <ol class="list-unstyled">
+                <li><a href="#">GitHub</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Facebook</a></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+      <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
+        <div class="col-md-6 px-0">
+          <img src="{% static 'images/men2.jpg' %}" alt="" class="w-100">
+          <h1 class="display-4 fst-italic">Title of a longer featured blog post</h1>
+          <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
+          <p class="lead mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p>
+        </div>
+      </div>
+
+
+
+
+      <form>
+        <img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+    
+        <div class="form-floating">
+          <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+          <label for="floatingInput">Email address</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+          <label for="floatingPassword">Password</label>
+        </div>
+    
+        <div class="checkbox mb-3">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+        <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+      </form>
+
+
+      
+  {% csrf_token %}
+  {{ form.as_p }}
+      <input type="submit" class="btn btn-primary" value="Login">
+      <input type="hidden" name="next" value="{{next}}">
+      

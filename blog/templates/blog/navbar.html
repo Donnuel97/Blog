@@ -1,0 +1,105 @@
+
+<nav class="navbar bg-light navbar-light navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+        <img src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
+        My Blog
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" href="{% url 'post_list'%}">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'about'%}">About</a></li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Contact
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+    
+                    <li><a class="dropdown-item" href="https://www.github.com">Github</a></li>
+                    <li><a class="dropdown-item" href="https://www.linkedin.com">LinkedIn</a></li>
+                   
+                </ul>
+            </li>
+<!------------------------------------------------------------------------------------------------------------------------------------------------------>
+    {% if user.is_authenticated %}
+        <ul class="nav justify-content-end ">
+        
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Profile
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                    {% if user.profile.id %}
+                        <li><a class="dropdown-item" href="{% url 'edit_profile_page' user.profile.id %}">Edit Profile Page</a></li>
+                        <li><a class="dropdown-item" href="{% url 'show_profile_page' user.profile.id %}">Profile page</a></li>
+                    {% else %}
+                        <li><a class="dropdown-item" href="{% url 'create_profile_page' %}">Create Profile Page</a></li>
+                    {% endif %}
+                    
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{% url 'edit_profile' %}">Edit settings</a></li>
+                </ul>
+            </li>
+
+            <!--Category menu code-->        
+            {% if cat_menu %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Category
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  {% for item in cat_menu %}
+                    <!---Check PostListView bfr apply these--->
+                    <li><a class="dropdown-item" href="{% url 'category_view' item|slugify %}">{{ item }}</a></li>
+                  {% endfor %}
+              </ul>
+            </li>
+            
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'category_list' %}" >Categories</a>
+                </li>
+            {% endif %}        
+            <!--Category menu code/-->
+
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                My Blog
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item"  href="{% url 'post_new' %}" >New Post</a></li>
+                <li><a class="dropdown-item" href="{% url 'add_category' %}" >New Category</a></li>
+                <li><a class="dropdown-item" href="#">Drafts</a></li>
+                
+            </ul>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}" >Log out</a>
+            </li>
+            
+
+            <li class="nav-item">
+                <a class="nav-link">Welcome: {{ user.username }}</a>
+            </li class="nav-item">
+    {% else %}
+            <li class="nav-item"><a class='nav-link' href="{% url 'register' %}" >Register</a></li>
+            <li class="nav-item"><a class='nav-link' href="{% url 'login' %}" >Login</a></li>
+    {% endif %}
+
+        </ul>
+<!------------------------------------------------------------------------------------------------------------------------------------------------------>
+            
+        </ul>
+
+        
+        </div>
+    </div>
+</nav>
+<!---------------------------------------------------------------------------------------------------------------------------------------------------->

@@ -1,0 +1,30 @@
+{% extends 'blog/base.html' %}
+{% block title %} Create New Blog Post {% endblock %}
+{% block content %}
+<br/><br/>
+<div class="container">
+{% if user.is_authenticated %}
+
+    <h1 class="text-dark">New Post</h1>
+    <form class="post-form" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.media }}
+        {{form.as_p}}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+   
+    <script>
+        var name = "{{ user.id }}";
+        document.getElementById("client").value = name;
+    </script>    
+{% else %}
+<p>You are not allowed access to this page <a href="{% url 'login' %}" >Login </a> to gain access...Thank You :)</p>
+
+{% endif %}
+</div>
+</br></br>
+<div class="container-fluid">
+    {% include 'blog/footer.html' %}
+</div>
+{% endblock %}
+<!--for the ckeditor to show, the safe is added-->

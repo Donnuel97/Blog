@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+          {% block title %}
+
+          {% endblock %}
+        </title>
+        <!-- Latest compiled and minified CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static "css/bootstrap/css/bootstrap.min.css"%}">
+        <script src="{% static "css/bootstrap/js/jquery.min.js"%}" charset="utf-8"></script>
+        <script src="{% static "css/bootstrap/js/bootstrap.min.js"%}" charset="utf-8"></script>
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+        {# MEDIUM STYLE EDITOR#}
+        <script src="//cdn.jsdelivr.net/medium-editor/latest/js/medium-editor.min.js"></script>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/medium-editor/latest/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+
+
+        {# Custom CSS#}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/blog.css' %}">
+
+        {# Fonts#}
+        <link href="https://fonts.googleapis.com/css?family=Montserrat|Russo+One" rel="stylesheet">
+
+        <link rel="stylesheet" href="{% static 'css/Style.css' %}">
+        
+        <link rel="stylesheet" type="text/css" href="{% static 'css\fontawesome\css\all.css' %}">
+   
+
+        <!-- --------- Owl-Carousel ------------------->
+        <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+       
+    
+        <!-- ------------ AOS Library ------------------------- -->
+    
+        <link rel="stylesheet" href="{% static 'css\aos.css' %}">
+      
+       
+
+<body >
+
+<!---------------------------------------------------------------------------------------------------------------------------------------------------->
+
+<div class="container">
+    <header class="blog-header py-3 ">
+      <div class="row flex-nowrap justify-content-between align-items-center">
+        <div class="col-4 pt-1">
+          <h1><a class="blog-header-logo text-dark" href="{% url 'post_list'%}">My Blog</a></h1>
+        </div>
+        <div class="col-4 text-center">
+            
+        </div>
+        
+        <div class="col-4 d-flex justify-content-end align-items-center">
+          <a class="link-dark" href="#" aria-label="Search">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
+          </a>
+         
+          {% if user.is_authenticated %}
+            <a class="p-2 link-dark"> {{ user.username }}</a>
+            <!-----------------User menu code begin-----------------> 
+            <a class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle link-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Profile
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                    {% if user.profile.id %}
+                        <li><a class="dropdown-item" href="{% url 'edit_profile_page' user.profile.id %}">Edit Profile Page</a></li>
+                        <li><a class="dropdown-item" href="{% url 'show_profile_page' user.profile.id %}">Profile page</a></li>
+                    {% else %}
+                        <li><a class="dropdown-item" href="{% url 'create_profile_page' %}">Create Profile Page</a></li>
+                    {% endif %}
+                    
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{% url 'edit_profile' %}">settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{% url 'logout' %}" >Log out</a></li>
+
+
+                </ul>
+            </a>
+            <!-------------------------User menu code end-------------------------->
+
+            <!-------------------------profile menu code begin------------------------> 
+            <a class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle link-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    My Blog
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item"  href="{% url 'post_new' %}" >New Post</a></li>
+                    {% if user.id == 1 %}
+                    <li><a class="dropdown-item" href="{% url 'add_category' %}" >New Category</a></li>
+                    {% endif %}
+                    
+                    
+                </ul>
+            </a>
+            <!-------------------profile menu code end-------------------------------> 
+            
+          {% else %}
+          
+            
+                <a class="nav-link link-dark" href="{% url 'register' %}">Register</a>
+                <a class="nav-link link-dark" href="{% url 'login' %}">Login</a>
+            <!-------------------test code ------------------------------->
+            
+          {% endif %}
+        </div>
+      </div>
+    </header>
+  
+  </div>
+  
+  <main class="container-fluid">
+    {% block content %}
+
+    {% endblock %}
+  </main>
+
+
+
+<script src="{% static 'css\bootstrap\js\jquery.min.js' %}" charset="utf-8"></script>
+<script src="{% static 'css\bootstrap\js\bootstrap.min.js' %}" charset="utf-8"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{% static 'js/blog.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/widearea.js' %}"></script>
+<!-- Jquery Library file -->
+<script src="{% static 'js/Jquery3.4.1.min.js' %}"></script>
+   
+
+<!-- --------- Owl-Carousel js ------------------->
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+
+<!-- ------------ AOS js Library  ------------------------- -->
+<script src="{% static 'js/aos.js' %}"></script>
+
+<!-- Custom Javascript file -->
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

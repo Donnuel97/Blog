@@ -1,0 +1,122 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %} Home {% endblock %}
+{% block content %}
+
+  <section class="site-title">          
+    <div class="site-background" data-aos="fade-up" data-aos-delay="100">
+        <h3>Tours & Travels</h3>
+        <h1>Amazing Place on Earth</h1>
+        <button class="btn">Explore</button>
+    </div>
+  </section>
+
+<br/><br/>
+
+
+    <div class="container-fluid blog">
+        <div class="row mb-2">
+          
+          
+          <div class="col-md-6">
+            {% for post in post_list %}
+            {% if post.text %}
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" style="background-color: white;">
+              <div class="col p-4 d-flex flex-column position-static">
+                <strong class="d-inline-block mb-2 text-primary"><a class="" href="{% url 'category_view' post.category|slugify %}">{{ post.category }}</a></strong>
+                <h3 class="mb-0"> {{ post.title }} </h3>
+                <div class="mb-1 text-muted"><small>Published on: {{ post.create_date|date:"D M Y"}}</small></div>
+                
+                <a href="{% url 'post_detail' pk=post.id %}" >Click to read post</a>
+              </div>
+              {% if post.image %}
+              <div class="col-auto d-none d-sm-block ">         
+                <img src="{{ post.image.url }}" class="w-100 img-thumbnail img-fluid " style="height: 100%;" data-aos="zoom-in" data-aos-delay="200">
+              </div>
+              {% endif %}
+            </div>
+            {% else %}
+              <p><u>No post currently available</u></p>
+            {% endif %}
+            {% endfor %}
+            <br/><br/>
+             <p class="text-dark"> {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+              <ul  class="pagination pagination-sm"style="">
+                {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link link-dark" href="{% url 'post_list'%}">&laquo; first</a> </li>
+                <li class="page-item"><a class="page-link link-dark" href="?page={{ page_obj.previous_page_number }}"> previous</a> </li>
+                {% endif %}
+                {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link link-dark" href="?page={{ page_obj.next_page_number }}"> next</a> </li>
+                <li class="page-item"><a class="page-link link-dark" href="?page={{ page_obj.paginator.num_pages }}"> last</a></li>
+                {% endif %}
+              </ul>
+              
+          </div>
+          <div class="col-md-2"></div>
+          <div class="col-md-4" >
+            <div class="position-sticky" style="top: 2rem;">
+              <div class="p-4 mb-3 bg-light rounded" style="background-color: white;" data-aos="zoom-in" data-aos-delay="200">
+                <h4 class="fst-italic" id="about" >About</h4>
+                <p class="mb-0">Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.</p>
+              </div>
+              <div class=" site-content">
+
+              <aside class="sidebar">
+              <div class="category ">
+                <h2>Category</h2>
+                <ul class="category-list">
+                    <li class="list-items" data-aos="fade-left" data-aos-delay="100">
+                        <a href="#">Software</a>
+                        <span>(05)</span>
+                    </li>
+                    <li class="list-items" data-aos="fade-left" data-aos-delay="200">
+                        <a href="#">Techonlogy</a>
+                        <span>(02)</span>
+                    </li>
+                    <li class="list-items" data-aos="fade-left" data-aos-delay="300">
+                        <a href="#">Lifestyle</a>
+                        <span>(07)</span>
+                    </li>
+                    <li class="list-items" data-aos="fade-left" data-aos-delay="400">
+                        <a href="#">Shopping</a>
+                        <span>(01)</span>
+                    </li>
+                    <li class="list-items" data-aos="fade-left" data-aos-delay="500">
+                        <a href="#">Food</a>
+                        <span>(08)</span>
+                    </li>
+                </ul>
+              </div>
+              </aside>
+            </div>
+            </br>
+        
+        
+      
+              <div class="p-4" style="background-color: white;">
+                <h4 class="fst-italic">Contact Us</h4>
+                <ol class="list-unstyled">
+                  <li><a href="#">GitHub</a></li>
+                  <li><a href="#">Twitter</a></li>
+                  <li><a href="#">Facebook</a></li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
+
+
+
+
+    </br></br>
+    <div class="container-fluid">
+        {% include 'blog/footer.html' %}
+    </div>
+
+{% endblock %}
+
+

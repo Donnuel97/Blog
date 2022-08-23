@@ -1,0 +1,74 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %} Home {% endblock %}
+{% block content %}
+<div class="container">
+
+<h1 class="text-dark">User Profile</h1>
+
+
+
+<div class="card mb-3" style="max-width: 100%;">
+</br>
+    <div class="row g-0">
+        {% if page_user.profile_pic %}
+        
+            <div class="col-md-4">
+                <img src="{{ page_user.profile_pic.url }}" class="img-fluid rounded-start" alt="">
+            </div>
+ 
+        {% else %}
+            <div class="col-md-4">
+                <img src="{% static 'images/profile2.png' %}" class="img-fluid rounded-start" alt="...">
+            </div>
+        {% endif %}
+        <div class="col-md-8">
+        <div class="card-body">
+            <h5 class="card-title">
+                My name: {{ page_user.user.first_name}} {{ page_user.user.last_name}} 
+            </h5>
+            <h5 class="card-title">
+                Username: {{ page_user.user.username}} 
+            </h5>
+            
+            <p class="card-text">
+                <small class="text-muted">
+
+                    {% if user.profile.website_url %}
+                        <a class="link-dark" href="{{ page_user.profile.website_url }}">Website </a>
+                    {% endif %}
+
+                    {% if user.profile.facebook_url %}
+                        <a class="link-dark" href="{{ page_user.profile.facebook_url }}">| Facebook | </a>
+                    {% endif %}
+
+                    {% if user.profile.twitter_url %}
+                        <a class="link-dark" href="{{page_user.profile.twitter_url }}">Twitter | </a>
+                    {% endif %}
+
+                    {% if user.profile.instagram_url %}
+                        <a class="link-dark" href="{{ page_user.profile.instagram_url }}">Instagram | </a>
+                    {% endif %}
+
+                    {% if user.profile.pintrest_url %}
+                        <a class="link-dark" href="{{ page_user.profile.pintrest_url }}">Pintrest </a>
+                    {% endif %}
+    
+                </small>
+            </p>
+            </br>
+            <p class="card-text">
+                <h5 class="card-title"> About : </h5>
+                {{ page_user.bio }}
+            </p>
+            <p class="card-text"><small class="text-muted"><b>Last Update : {{ profile.create_date|date:"D M Y"}}</b></small></p>
+        </div>
+        </div>
+    </div>
+</div>
+</div>
+</br></br>
+<div class="container-fluid">
+    {% include 'blog/footer.html' %}
+</div>
+{% endblock %}
