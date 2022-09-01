@@ -1,0 +1,58 @@
+{% load static %}
+<div  class="sidebar">
+{% if user.is_authenticated %}
+    <div class="box">
+        <h3 class="title">about author</h3>
+        <div class="about">
+            {% if user.profile.profile_pic %}
+                <img src="{{ user.profile.profile_pic.url }}"  alt="">
+            {% else %}
+                <img src="{% static 'css\trial\images\user.png' %}"  alt="">
+            {% endif %}
+
+            <h3><a class="link-dark" href=""> {{ user.username }} </a></h3>
+
+            <div class="box">
+                <h3 class="title">User profile</h3>
+                <div class="category">
+                    {% if user.profile.id %}
+                        <a class="dropdown-item" href="{% url 'edit_profile_page' user.profile.id %}">Edit Profile Page</a>
+                        <a class="dropdown-item" href="{% url 'show_profile_page' user.profile.id %}">Profile page</a>
+                    {% else %}
+                        <a class="dropdown-item" href="{% url 'create_profile_page' %}">Create Profile Page</a>
+                    {% endif %}
+                    <a class="dropdown-item" href="">settings</a>
+                    <a class="dropdown-item" href="" >Log out</a>
+                    <a class="dropdown-item"  href="{% url 'post_new' %}" >New Post</a>
+                    {% if user.id == 1 %}
+                        <a class="dropdown-item" href="{% url 'add_category' %}" >New Category</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="follow">
+                {% if post.author.profile.website_url %}
+                    <a class="fab fa-linkedin" href="{{ post.author.profile.website_url }}"></a>
+                {% endif %}
+
+                {% if post.author.profile.facebook_url %}
+                    <a class="fab fa-facebook-f" href="{{ post.author.profile.facebook_url }}"></a>
+                {% endif %}
+
+                {% if post.author.profile.twitter_url %}
+                    <a class="fab fa-twitter" href="{{ post.author.profile.twitter_url }}"></a>
+                {% endif %}
+
+                {% if post.author.profile.instagram_url %}
+                    <a class="fab fa-instagram" href="{{ post.author.profile.instagram_url }}"></a>
+                {% endif %}
+
+                {% if post.author.profile.pintrest_url %}
+                    <a class="fab fa-pinterest" href="{{ post.author.profile.pintrest_url }}"></a>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+{% endif %}
+</div>

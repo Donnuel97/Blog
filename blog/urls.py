@@ -2,7 +2,6 @@ from django.urls import path
 from . import views #this import imports function based views
 
 
-
 urlpatterns = [
 	path('', views.PostListView.as_view(), name="post_list"),
 	path('post/<int:pk>', views.PostDetailView.as_view(), name="post_detail"),
@@ -10,6 +9,7 @@ urlpatterns = [
 	path('new_post/', views.CreatePostView.as_view(), name="post_new"),
 	path('add_category/', views.AddCategoryView.as_view(), name="add_category"),
 	path('post/<int:pk>/comment/', views.AddCommentView.as_view(), name="add_comment"),
+
     #path('post/<int:pk>/edit/', views.PostUpdateView.as_view(), name="post_edit"),
     #path('post/<int:pk>/remove/', views.PostDeleteView.as_view(), name="post_remove"),
 

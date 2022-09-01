@@ -60,22 +60,9 @@
     </div>
 
     <div  class="sidebar">
-
-        <div class="box">
-            <h3 class="title">about me</h3>
-            <div class="about">
-                <img src="{% static 'css\trial\images\user.png' %}" alt="">
-                <h3>shaikh anas</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, officia.</p>
-                <div class="follow">
-                    <a href="#" class="fab fa-facebook-f"></a>
-                    <a href="#" class="fab fa-twitter"></a>
-                    <a href="#" class="fab fa-instagram"></a>
-                    <a href="#" class="fab fa-linkedin"></a>
-                </div>
-            </div>
-        </div>
-
+    {% if user.is_authenticated %}
+        {% include 'registration/user_prof.html' %}
+    {% endif %}
         <div class="box">
             <h3 class="title">categories</h3>
             <div class="category">

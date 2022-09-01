@@ -53,7 +53,7 @@ class PostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
-    template_name = 'post_detail.html'
+    template_name = 'trial\post_detail.html'
 
     # this handles listing of categories on base.html and links the listed categories to the various destination even
     # though other pages pull from the base file these category func will not work excxept we add it to the views
@@ -140,6 +140,8 @@ class AddCommentView(CreateView):
 
         # success_url = reverse_lazy('post_detail')
     # fields = '__all__'
+
+
 
 
 ###########################################################################

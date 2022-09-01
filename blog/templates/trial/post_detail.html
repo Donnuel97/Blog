@@ -1,0 +1,100 @@
+{% extends 'trial/index.html' %}
+{% load static %}
+{% block title %} Home {% endblock %}
+{% block content %}
+
+<br/><br/>
+<h1 class='#'>{{ post.title }} </h1>
+<small>By:
+    {{ post.author.first_name }}
+    {{ post.author.last_name }},
+    {{ post.create_date }}
+</small>
+
+<section class="container" id="posts">
+
+<div class="posts-container">
+
+
+
+    <div class="post">
+        {% if post.image %}
+            <img src="{{ post.image.url }}" alt="" class="image">
+        {% endif %}
+        <div class="date">
+            <i class="far fa-clock"></i>
+            <span>{{ post.create_date|date:"D M Y"}}</span>
+        </div>
+        <h3 class="title"> {{ post.title }}</h3>
+        <p class="text">{{ post.text|safe|linebreaksbr }}</p>
+        </br>
+
+        <div class="links">
+            {% if user.is_authenticated %}
+                <span>
+                    {% if user.id == post.author.id %}
+                        <a  href="{% url 'post_edit' post.pk %}">(Edit)</a> |
+                        <a  href="{% url 'post_remove' post.pk %}">(Delete)</a> |
+                        <a  href="{% url 'post_list'%}">(Home)</a>
+
+                    {% endif %}
+                </span>
+            {% else %}
+                <span>
+                    <a  href="{% url 'login' %}">Login |</a>
+                    <a  href="{% url 'post_list'%}">Home</a>
+                </span>
+            {% endif %}
+            </a>
+        </div>
+    </div>
+
+
+
+
+
+</div>
+<div  class="sidebar">
+
+    <div class="box">
+        <h3 class="title">about author</h3>
+        <div class="about">
+            {% if post.author.profile.profile_pic %}
+                <img src="{{ post.author.profile.profile_pic.url }}"  alt="">
+            {% else %}
+                <img src="{% static 'css\trial\images\user.png' %}"  alt="">
+            {% endif %}
+
+            <h3><a class="link-dark" href="{% url 'show_profile_page' post.author.profile.id %}"> {{ post.author.first_name}} {{ post.author.last_name}} </a></h3>
+            <p>{{ post.author.profile.bio }}</p>
+            <div class="follow">
+                {% if post.author.profile.website_url %}
+                    <a class="fab fa-linkedin" href="{{ post.author.profile.website_url }}"></a>
+                {% endif %}
+
+                {% if post.author.profile.facebook_url %}
+                    <a class="fab fa-facebook-f" href="{{ post.author.profile.facebook_url }}"></a>
+                {% endif %}
+
+                {% if post.author.profile.twitter_url %}
+                    <a class="fab fa-twitter" href="{{ post.author.profile.twitter_url }}"></a>
+                {% endif %}
+
+                {% if post.author.profile.instagram_url %}
+                    <a class="fab fa-instagram" href="{{ post.author.profile.instagram_url }}"></a>
+                {% endif %}
+
+                {% if post.author.profile.pintrest_url %}
+                    <a class="fab fa-pinterest" href="{{ post.author.profile.pintrest_url }}"></a>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</section>
+
+{% endblock %}
+
